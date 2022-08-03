@@ -133,7 +133,7 @@ env-mas: &env-mas
   MAS_BUILD: 'true'
 
 env-mas-apple-silicon: &env-mas-apple-silicon
-  GN_EXTRA_ARGS: 'target_cpu = "arm64" is_mas_build = true use_prebuilt_v8_context_snapshot = true is_asan = true enable_full_stack_frames_for_profiling = true'
+  GN_EXTRA_ARGS: 'target_cpu = "arm64" is_mas_build = true use_prebuilt_v8_context_snapshot = true'
   MAS_BUILD: 'true'
   TARGET_ARCH: arm64
   USE_PREBUILT_V8_CONTEXT_SNAPSHOT: 1
@@ -530,7 +530,11 @@ step-gn-gen-default: &step-gn-gen-default
     name: Default GN gen
     command: |
       cd src
-      gn gen out/Default --args="import(\"$GN_CONFIG\") import(\"$GN_GOMA_FILE\") $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
+      if  [ "$TARGET_ARCH" == "arm64" ] &&[ "$MAS_BUILD" == "true" ]; then
+        gn gen out/Default --args="import(\"$GN_CONFIG\") import(\"$GN_GOMA_FILE\") is_asan = true enable_full_stack_frames_for_profiling = true $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
+      else       
+        gn gen out/Default --args="import(\"$GN_CONFIG\") import(\"$GN_GOMA_FILE\") $GN_EXTRA_ARGS $GN_BUILDFLAG_ARGS"
+      fi
 
 step-gn-check: &step-gn-check
   run:
