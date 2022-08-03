@@ -312,16 +312,10 @@ void BrowserWindow::OnWindowFocus() {
 
 void BrowserWindow::OnWindowIsKeyChanged(bool is_key) {
 #if BUILDFLAG(IS_MAC)
-  LOG(INFO) << "In BrowserWindow::OnWindowIsKeyChanged";
   auto* rwhv = web_contents()->GetRenderWidgetHostView();
-  LOG(INFO) << "In BrowserWindow::OnWindowIsKeyChanged2";
-  if (rwhv) {
-    LOG(INFO) << "In BrowserWindow::OnWindowIsKeyChanged3";
+  if (rwhv)
     rwhv->SetActive(is_key);
-  }
-  LOG(INFO) << "In BrowserWindow::OnWindowIsKeyChanged4";
   window()->SetActive(is_key);
-  LOG(INFO) << "In BrowserWindow::OnWindowIsKeyChanged5";
 #endif
 }
 

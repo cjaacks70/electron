@@ -530,10 +530,8 @@ void NativeWindow::NotifyWindowFocus() {
 }
 
 void NativeWindow::NotifyWindowIsKeyChanged(bool is_key) {
-  for (NativeWindowObserver& observer : observers_) {
-    LOG(INFO) << "ABOUT TO CALL .OnWindowIsKeyChanged on observer";
+  for (NativeWindowObserver& observer : observers_)
     observer.OnWindowIsKeyChanged(is_key);
-  }
 }
 
 void NativeWindow::NotifyWindowShow() {
