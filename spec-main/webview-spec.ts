@@ -3,7 +3,7 @@ import * as url from 'url';
 import { BrowserWindow, session, ipcMain, app, WebContents } from 'electron/main';
 import { closeAllWindows } from './window-helpers';
 import { emittedOnce, emittedUntil } from './events-helpers';
-import { ifit, delay, defer, itremote, useRemoteContext } from './spec-helpers';
+import { ifit, ifdescribe, delay, defer, itremote, useRemoteContext } from './spec-helpers';
 import { expect } from 'chai';
 import * as http from 'http';
 import { AddressInfo } from 'net';
